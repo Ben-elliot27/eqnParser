@@ -2,11 +2,7 @@
 
 ## Overview
 
-This project is a Python-based calculator with a graphical user interface (GUI) built using PyQt5. The main goal of this project is not just to create a functional calculator, but to explore and learn about parsing techniques using programming languages. The calculator evaluates mathematical expressions input by the user as strings, which are parsed and processed by a custom parser implemented in Python.
-
-## Credit
-
-This project was worked on jointly with @JamesMartinGithub 
+This project is a Python-based calculator with a graphical user interface (GUI) built using PyQt5. The main goal of this project is not just to create a functional calculator, but to explore and learn about parsing techniques using programming languages. The calculator evaluates mathematical expressions input by the user as strings, which are parsed and processed by a custom parser implemented in Python. This project was worked on jointly with @JamesMartinGithub 
 
 ## Features
 
@@ -53,6 +49,10 @@ This project was worked on jointly with @JamesMartinGithub
 ## Contributing
 
 Contributions to improve the calculator, the parser, or the GUI are welcome. Please fork the repository, make your changes, and submit a pull request.
+
+## Credit
+
+This project was worked on jointly with @JamesMartinGithub 
 
 ---
 
