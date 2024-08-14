@@ -1,10 +1,11 @@
 """
 MAIN SCRIPT WITH GUI
 
-TODO: when first button pressed replace 0 with number
-TODO: when button pressed currently adds space between every number - should only be between operators
+TODO: when first button pressed replace 0 with number - maybe fixed
+TODO: when button pressed currently adds space between every number - should only be between operators - maybe fixed
 TODO: fix look of buttons
-TODO: fix what happens when '=' button pressed
+TODO: fix what happens when '=' button pressed - maybe fixed
+TODO: Handle new operator key press - maybe fixed
 """
 
 import sys
@@ -14,6 +15,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 
 import Interpreter
+
 
 class App(QMainWindow):
     def __init__(self):
@@ -41,8 +43,8 @@ class App(QMainWindow):
         self.textbox.resize(280, 40)
         self.textbox.setStyleSheet('background-color: rgba(100, 100, 100, 0); color: white; font-size: 20px')
         # Connect returnPressed signal of QLineEdit to custom slot function
-        # TODO: (POTENTIALLY) enter keypress currently only works when selected textbox
-        self.textbox.returnPressed.connect(self.update_non_editable_label)
+        # TODO: (POTENTIAL bug/feature) ENTER keypress currently only works when selected textbox
+        self.textbox.returnPressed.connect(self.get_set_result)
         self.textbox.setAlignment(Qt.AlignRight)
 
         # Create a QLabel widget for non-editable text
@@ -134,7 +136,7 @@ class App(QMainWindow):
     def button_square_root_clicked(self):
         print("√x clicked")
         tex = self.textbox.text()
-        self.textbox.setText(f"{tex}^(1/2)")
+        self.textbox.setText(f"({tex})^(1/2)")
         # TODO: make sqrt symbol recognised instead - this could take some work as operator for this in wrong order
         # Also might need implicit multiplication as well for this
 
@@ -206,18 +208,30 @@ class App(QMainWindow):
 
     def button_equal_clicked(self):
         print("= clicked")
-        self.update_non_editable_label()
+        self.get_set_result()
 
     def button_divide_clicked(self):
         print("÷ clicked")
         self.button_press('/')
 
     def button_press(self, letter):
-        self.textbox.setText(f"{self.textbox.text()} {letter}")
+        # TODO: this is a mess and could be implemented so much better, pls fix :(
+        txt = self.textbox.text()
+        if txt == '0':
+            self.textbox.setText(letter)
+        else:
+            if txt[-1].isnumeric() and (letter.isnumeric() or letter == '.'):
+                self.textbox.setText(txt + letter)
+            else:
+                # It is an operator I think
+                if txt[-1] in Interpreter.operators:
+                    self.textbox.setText(txt[-1] + letter)
+                else:
+                    self.textbox.setText(txt + ' ' + letter)
 
-    def update_non_editable_label(self):
+    def get_set_result(self):
         # Update non-editable label text to match editable text
-        res = CALCLLLLLLLLLL.maina(self.textbox.text())
+        res = Interpreter.maina(self.textbox.text())
         self.label_e.setText(f"{self.textbox.text()} = ")
         self.textbox.setText(str(res))
 

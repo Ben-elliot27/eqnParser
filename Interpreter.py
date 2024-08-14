@@ -10,6 +10,8 @@ TODO: (interest) speed test vs eval
 bidmas = ['^', '*', '/', '_', '%', '-', '+']  # NOTE: _ is alias for floor division
 operators = "+-*/()^%_"
 
+replace_ops = [('//', '_')]  # [(operator to replace, operator to replace with)]
+
 def lex(eq: str) -> []:
     """
     Lexing stage - splits into full numbers and
@@ -89,7 +91,6 @@ def getResult(eq) -> float:
     mode = 0
 
     def splitOn2(bidmasElement, focus) -> [str]:
-        #print(focus)
         for bi in bidmasElement[::-1]:
             for i in range(len(focus) - 1, 0, -1):
                 char = focus[i]
@@ -107,7 +108,6 @@ def getResult(eq) -> float:
         return focus
 
     strings = splitOn2(bidmas, eq)
-
 
     # Evaluation
     def evaluate(string):
@@ -134,9 +134,12 @@ def getResult(eq) -> float:
     return evaluate(strings)
 
 def maina(eq):
-    eq = eq.replace('//', '_')
+    for op, rep in replace_ops:
+        eq.replace(op, rep)
     return bracket_madness(lex(eq))
+
 
 if __name__ == '__main__':
     eq = input(">>> ")
-    eq = eq.replace('//', '_')
+    for op, rep in replace_ops:
+        eq.replace(op, rep)
