@@ -1,11 +1,7 @@
 """
 MAIN SCRIPT WITH GUI
 
-TODO: when first button pressed replace 0 with number - maybe fixed
-TODO: when button pressed currently adds space between every number - should only be between operators - maybe fixed
 TODO: fix look of buttons
-TODO: fix what happens when '=' button pressed - maybe fixed
-TODO: Handle new operator key press - maybe fixed
 """
 
 import sys
